@@ -3,10 +3,12 @@ from flask_login import current_user, login_required
 
 
 from . import admin
-from app.admin.forms import GroupForm, RoleForm
+from app.admin.forms import GroupForm, RoleForm, UserAssignForm
 
 from .. import db
-from ..models import Group, Role
+from ..models import Group, Role, User
+
+
 
 
 def check_admin():
@@ -110,7 +112,7 @@ def delete_group(id):
     # redirect to the groups page
     return redirect(url_for('admin.list_groups'))
 
-    return render_template(title="Delete Group")
+    # return render_template(title="Delete Group")
 
 
 # Roles
@@ -202,4 +204,51 @@ def delete_role(id):
     # redirect to the roles page
     return redirect(url_for('admin.list_roles'))
 
-    return render_template(title="Delete Role")
+    # return render_template(title="Delete Role")
+
+
+
+
+# User Views
+
+@admin.route('/users')
+@login_required
+def list_users():
+    """
+    List all users
+    """
+    check_admin()
+
+    users = User.query.all()
+    return render_template('admin/users/users.html',
+                           users=users, title='users')
+
+
+@admin.route('/users/assign/<int:id>', methods=['GET', 'POST'])
+@login_required
+def assign_user(id):
+    """
+    Assign a group and a role to an user
+    """
+    check_admin()
+
+    user = User.query.get_or_404(id)
+
+    # prevent admin from being assigned a department or role
+    if user.is_admin:
+        abort(403)
+
+    form = UserAssignForm(obj=user)
+    if form.validate_on_submit():
+        user.group = form.group.data
+        user.role = form.role.data
+        db.session.add(user)
+        db.session.commit()
+        flash('You have successfully assigned a group and role.')
+
+        # redirect to the roles page
+        return redirect(url_for('admin.list_users'))
+
+    return render_template('admin/users/user.html',
+                           user=user, form=form,
+                           title='Assign user')
