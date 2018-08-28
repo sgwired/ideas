@@ -22,6 +22,8 @@ class User(UserMixin, db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('groups.id'))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     is_admin = db.Column(db.Boolean, default=False)
+    ideas = db.relationship('Idea', backref='user',
+                                lazy='dynamic')
 
     @property
     def password(self):
@@ -85,3 +87,21 @@ class Role(db.Model):
 
     def __repr__(self):
         return '<Role: {}>'.format(self.name)
+
+
+class Idea(db.Model):
+    """
+    Create a Idea table
+    """
+
+    __tablename__ = 'ideas'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100))
+    category = db.Column(db.String(100))
+    description = db.Column(db.String(255))
+    reatailer = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+ 
+    def __repr__(self):
+        return '<Idea: {}>'.format(self.name)
