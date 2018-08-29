@@ -23,7 +23,7 @@ class User(UserMixin, db.Model):
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     is_admin = db.Column(db.Boolean, default=False)
     ideas = db.relationship('Idea', backref='user',
-                                lazy='dynamic')
+                            lazy='dynamic')
 
     @property
     def password(self):
@@ -66,7 +66,7 @@ class Group(db.Model):
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
     users = db.relationship('User', backref='group',
-                                lazy='dynamic')
+                            lazy='dynamic')
 
     def __repr__(self):
         return '<Group: {}>'.format(self.name)
@@ -83,7 +83,7 @@ class Role(db.Model):
     name = db.Column(db.String(60), unique=True)
     description = db.Column(db.String(200))
     users = db.relationship('User', backref='role',
-                                lazy='dynamic')
+                            lazy='dynamic')
 
     def __repr__(self):
         return '<Role: {}>'.format(self.name)
@@ -100,8 +100,8 @@ class Idea(db.Model):
     name = db.Column(db.String(100))
     category = db.Column(db.String(100))
     description = db.Column(db.String(255))
-    reatailer = db.Column(db.String(255))
+    retailer = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
- 
+
     def __repr__(self):
         return '<Idea: {}>'.format(self.name)
