@@ -54,6 +54,13 @@ def dashboard():
     return render_template('home/dashboard.html', title="Dashboard", current_user=current_user)
 
 
+@home.route('/profile')
+@login_required
+def profile():
+     return render_template('home/profile.html', title="Profile", current_user=current_user)
+
+
+
 @home.route('/ideas', methods=['GET', 'POST'])
 @login_required
 def list_ideas():

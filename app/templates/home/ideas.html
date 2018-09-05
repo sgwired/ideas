@@ -1,9 +1,9 @@
  {% import "bootstrap/utils.html" as utils %} {% extends "base.html" %} {% block title %}ideas{% endblock %} {% block body
 %} {{ super() }}
-<div class="content-section">
-    <div class="outer">
-        <div class="middle">
-            <div class="inner">
+<!-- <div class="content-section">
+    <div class="">
+        <div class="">
+            <div class="">
                 <br/> {{ utils.flashed_messages() }}
                 <br/>
                 <h1 style="text-align:center;">Ideas</h1>
@@ -55,5 +55,156 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
+    <div class="container">
+
+        <div class="row">
+            <div class="blog-header">
+                <h1>Welcome Back {{current_user.first_name }} {{ current_user.last_name }}</h1>
+                  <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
+              </div>
+        </div>
+    
+        <div class="row">
+            <div class="col-sm-8 blog-main">
+                <h2 class="sub-header">Submitted Ideas</h2>
+                {% if ideas %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th width="15%"> Name </th>
+                                <th width="40%"> Description </th>
+                                <th width="15%"> Category </th>
+                                <th width="15%"> Retailer </th>
+                                <th width="15%"> Delete </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for idea in ideas %}
+                            <tr>
+                                <td> {{ idea.name }} </td>
+                                <td> {{ idea.description }} </td>
+                                <td> {{ idea.category }} </td>
+                                <td> {{ idea.retailer }} </td>
+                                <td>
+                                    <a href="{{ url_for('home.edit_idea', id=idea.id) }}">
+                                        <i class="fa fa-pencil"></i> Edit
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('home.delete_idea', id=idea.id) }}">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+ 
+                <!-- <div style="text-align: center"> -->
+                    {% else %}
+                    <!-- <div style="text-align: center"> -->
+                        <h3> No ideas have been added. </h3>
+                        <hr class="intro-divider"> {% endif %}
+                        <a href="{{ url_for('home.add_idea') }}" class="btn btn-default btn-lg">
+                            <i class="fa fa-plus"></i>
+                            Add idea
+                        </a>
+                    <!-- </div> -->
+                <!-- </div> -->
+    
+            </div><!-- /.blog-main -->
+    
+            <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+                <!-- <div class="sidebar-module sidebar-module-inset">
+                    <h4>Status</h4>
+                    <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum.
+                        Aenean lacinia bibendum nulla sed consectetur.</p>
+                </div> -->
+                <div class="sidebar-module">
+                    <h4>Documents</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="#">Non Disclosure Agreement</a></li>
+    
+                    </ol>
+                </div>
+                <br>
+                <br>
+                <div class="sidebar-module">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                           Comments
+                        </div>
+                        <div class="panel-body">
+                            <textarea class="form-control" placeholder="Enter here for tweet..." rows="3"></textarea>
+                            <br>
+                            <a href="#" class="btn btn-primary btn-sm pull-right">Add</a>
+                            <div class="clearfix"></div>
+                            <hr>
+                            <ul class="media-list">
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="assets/img/1.png" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">30 min ago</small>
+                                        </span>
+                                        <strong class="text-success">@ Rexona Kumi</strong>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Lorem ipsum dolor sit amet, <a href="#"># consectetur adipiscing </a>.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="assets/img/2.png" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">30 min ago</small>
+                                        </span>
+                                        <strong class="text-success">@ John Doe</strong>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                            Lorem ipsum dolor <a href="#"># ipsum dolor </a>adipiscing elit.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="assets/img/3.png" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">30 min ago</small>
+                                        </span>
+                                        <strong class="text-success">@ Madonae Jonisyi</strong>
+                                        <p>
+                                            Lorem ipsum dolor <a href="#"># sit amet</a> sit amet, consectetur adipiscing elit.
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <span class="text-danger">237K users active</span>
+                        </div>
+                    </div>
+                
+                </div>
+
+            </div><!-- /.blog-sidebar -->
+    
+        </div><!-- /.row -->
+    
+    </div><!-- /.container -->
+
+
+
+
+    
     {% endblock %}
