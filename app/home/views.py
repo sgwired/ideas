@@ -68,7 +68,7 @@ def list_ideas():
     List all ideas for a user
     """
 
-    ideas = Idea.query.all()
+    ideas = Idea.query.filter_by(user_id = current_user.id)
 
     return render_template('home/ideas.html',
                            ideas=ideas, title="Ideas")

@@ -1,66 +1,9 @@
  {% import "bootstrap/utils.html" as utils %} {% extends "base.html" %} {% block title %}ideas{% endblock %} {% block body
 %} {{ super() }}
-<!-- <div class="content-section">
-    <div class="">
-        <div class="">
-            <div class="">
-                <br/> {{ utils.flashed_messages() }}
-                <br/>
-                <h1 style="text-align:center;">Ideas</h1>
-                {% if ideas %}
-                <hr class="intro-divider">
-                <div class="center">
-                    <table class="table table-striped table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="15%"> Name </th>
-                                <th width="40%"> Description </th>
-                                <th width="15%"> Category </th>
-                                <th width="15%"> Retailer </th>
-                                <th width="15%"> Delete </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for idea in ideas %}
-                            <tr>
-                                <td> {{ idea.name }} </td>
-                                <td> {{ idea.description }} </td>
-                                <td> {{ idea.category }} </td>
-                                <td> {{ idea.retailer }} </td>
-                                <td>
-                                    <a href="{{ url_for('home.edit_idea', id=idea.id) }}">
-                                        <i class="fa fa-pencil"></i> Edit
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="{{ url_for('home.delete_idea', id=idea.id) }}">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                <div style="text-align: center">
-                    {% else %}
-                    <div style="text-align: center">
-                        <h3> No ideas have been added. </h3>
-                        <hr class="intro-divider"> {% endif %}
-                        <a href="{{ url_for('home.add_idea') }}" class="btn btn-default btn-lg">
-                            <i class="fa fa-plus"></i>
-                            Add idea
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
     <div class="container">
-
         <div class="row">
             <div class="blog-header">
+                    <br/> {{ utils.flashed_messages() }}
                 <h1>Welcome Back {{current_user.first_name }} {{ current_user.last_name }}</h1>
                   <p class="lead blog-description">The official example template of creating a blog with Bootstrap.</p>
               </div>
@@ -202,9 +145,4 @@
         </div><!-- /.row -->
     
     </div><!-- /.container -->
-
-
-
-
-    
     {% endblock %}
